@@ -4,17 +4,31 @@ from flask_cors import CORS
 import os
 from datetime import timedelta
 
-app = Flask(__name__)
-app.secret_key = os.urandom(24)
-# Increase session lifetime for testing
+# Initialize Flask app - ADDED static_folder parameter to serve your HTML/CSS/JS files
+app = Flask(__name__, static_folder='.', static_url_path='')
+# CHANGED: Get secret key from environment variable for security
+app.secret_key = os.environ.get("SECRET_KEY", os.urandom(24))
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=1)
-CORS(app, origins=["http://127.0.0.1:5500", "http://localhost:5500"], supports_credentials=True)
 
-# Supabase configuration
-SUPABASE_URL = "https://tuatxlavzuoyjlcytuzc.supabase.co"
-SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR1YXR4bGF2enVveWpsY3l0dXpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2MTgzMTcsImV4cCI6MjA3MjE5NDMxN30.K5nyh3IJ78gWU1u6C6QuiRl3GlRDoGgVCHzrvOaSJ2U"
+# CHANGED: Allow all origins for deployment - you can restrict this later
+CORS(app, origins=["*"], supports_credentials=True)
+
+# CHANGED: Get Supabase config from environment variables for security
+SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://tuatxlavzuoyjlcytuzc.supabase.co")
+SUPABASE_KEY = os.environ.get("SUPABASE_KEY", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR1YXR4bGF2enVveWpsY3l0dXpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY2MTgzMTcsImV4cCI6MjA3MjE5NDMxN30.K5nyh3IJ78gWU1u6C6QuiRl3GlRDoGgVCHzrvOaSJ2U")
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
+# ADDED: Serve your main HTML file at the root URL
+@app.route("/")
+def serve_index():
+    return app.send_static_file('index.html')
+
+# ADDED: Serve other HTML files (like login.html)
+@app.route("/<path:page_name>")
+def serve_pages(page_name):
+    return app.send_static_file(page_name)
+
+# YOUR EXISTING CODE BELOW - NO CHANGES MADE TO YOUR API ROUTES
 @app.route("/test-session")
 def test_session():
     user_id = session.get('user_id')
@@ -139,5 +153,7 @@ def logout():
     print("DEBUG: User logged out")
     return jsonify({"success": True, "message": "Logged out successfully"})
 
+# CHANGED: Added PORT configuration for Render
 if __name__ == "__main__":
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
