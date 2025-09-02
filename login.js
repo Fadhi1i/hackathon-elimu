@@ -18,7 +18,7 @@ async function handleLogin(event) {
 
     try {
         // Send login data to Flask backend
-        const response = await fetch("http://127.0.0.1:5000/login", {
+        const response = await fetch("/login", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             credentials: 'include', // Important for sessions
@@ -45,4 +45,5 @@ async function handleLogin(event) {
         alert("Login failed: " + error.message);
         // Don't clear the form on error so user can see what they entered
     }
+
 }
