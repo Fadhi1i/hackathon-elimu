@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ELIMU Bora | CBC Parent Dashboard</title>
+    <link rel="stylesheet" href="mainpage.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <h2>📘 ELIMU <span>Bora</span></h2>
+        <p>CBC Parent Dashboard</p>
+      </div>
+      <ul class="nav-links">
+        <li>
+          <a href="#" class="active">🏠 <span>Dashboard</span></a>
+        </li>
+        <li>
+          <a href="#">📊 <span>CBC Progress</span></a>
+        </li>
+        <li>
+          <a href="#">📚 <span>Learning Resources</span></a>
+        </li>
+        <li>
+          <a href="#">👥 <span>Parent Community</span></a>
+        </li>
+        <li>
+          <a href="#">📅 <span>School Calendar</span></a>
+        </li>
+        <li>
+          <a href="#">⚙️ <span>Settings</span></a>
+        </li>
+        <li>
+          <a href="#" onclick="logout(); return false;"
+            >🚪 <span>Logout</span></a
+          >
+        </li>
+      </ul>
+
+      <div class="subscription-status">
+        <h3>Your Plan</h3>
+        <div class="plan free-plan">
+          <p>Free Plan</p>
+          <button class="upgrade-btn" onclick="showUpgradeOptions()">
+            Upgrade to Premium
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top bar -->
+      <header class="top-bar">
+        <button id="menu-toggle">☰</button>
+        <div class="user-profile">
+          <span class="avatar">👤</span>
+          <div>
+            <p id="welcomeMessage">Karibu, Parent</p>
+            <p class="user-email" id="userEmail">user@example.com</p>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dashboard content -->
+      <section class="dashboard">
+        <!-- Hero Section -->
+        <div class="hero-section">
+          <div class="overall-progress">
+            <h1 id="dashboardWelcome">Karibu to ELIMU Bora</h1>
+            <div class="progress-score">
+              <div class="score-circle">
+                <span class="score">B+</span>
+                <span class="score-label">Overall</span>
+              </div>
+              <div class="score-description">
+                <h2>Your child is on track with CBC!</h2>
+                <p>Based on recent performance across all competencies</p>
+                <button class="premium-btn" onclick="showUpgradeOptions()">
+                  📈 Tazama Insights za CBC
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="quick-stats">
+            <div class="stat-card">
+              <div class="stat-icon">📊</div>
+              <div class="stat-info">
+                <h3>CBC Competencies</h3>
+                <p class="stat-value">7/7</p>
+                <p class="stat-label">Being Developed</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">✅</div>
+              <div class="stat-info">
+                <h3>Assignments</h3>
+                <p class="stat-value">87%</p>
+                <p class="stat-label">Completed</p>
+              </div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-icon">🎯</div>
+              <div class="stat-info">
+                <h3>Pathway Readiness</h3>
+                <p class="stat-value">72%</p>
+                <p class="stat-label">For STEM</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CBC Competencies Radar Section -->
+        <div class="academic-radar">
+          <h2>CBC Core Competencies Development</h2>
+          <div class="radar-container">
+            <canvas id="competencyRadar"></canvas>
+          </div>
+        </div>
+
+        <!-- Two-column layout -->
+        <div class="dashboard-columns">
+          <!-- Left Column -->
+          <div class="column">
+            <!-- Action Center -->
+            <div class="action-center">
+              <h2>Kitu cha Kufanya <span class="badge">3</span></h2>
+              <div class="action-list">
+                <div class="action-item urgent">
+                  <div class="action-icon">⚠️</div>
+                  <div class="action-content">
+                    <h3>Sign CBC Assessment Form</h3>
+                    <p>Sign the CBC assessment form for Term 2</p>
+                    <button class="action-btn">Sign Now</button>
+                  </div>
+                </div>
+                <div class="action-item">
+                  <div class="action-icon">📝</div>
+                  <div class="action-content">
+                    <h3>Parent-Teacher Conference</h3>
+                    <p>Schedule a meeting about CBC progress</p>
+                    <button class="action-btn">Schedule</button>
+                  </div>
+                </div>
+                <div class="action-item">
+                  <div class="action-icon">💡</div>
+                  <div class="action-content">
+                    <h3>Learning Recommendation</h3>
+                    <p>Try this CBC-aligned activity (5 mins daily)</p>
+                    <button class="action-btn">View Activity</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Growth Timeline -->
+            <div class="growth-timeline">
+              <h2>Recent CBC Activity</h2>
+              <div class="timeline">
+                <div class="timeline-item">
+                  <div class="timeline-date">Leo</div>
+                  <div class="timeline-content">
+                    <h3>✅ Completed CBC Project</h3>
+                    <p>Environmental conservation group project</p>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-date">Jana</div>
+                  <div class="timeline-content">
+                    <h3>👏 Mwalimu's Note</h3>
+                    <p>
+                      "Excellent collaboration in Swahili presentation" -
+                      Mwalimu Wanjiku
+                    </p>
+                  </div>
+                </div>
+                <div class="timeline-item">
+                  <div class="timeline-date">Oct 22</div>
+                  <div class="timeline-content">
+                    <h3>🎯 Joined STEM Club</h3>
+                    <p>Signed up for after-school STEM activities</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column -->
+          <div class="column">
+            <!-- Resource Hub -->
+            <div class="resource-hub">
+              <h2>Vifaa vya Kujifunzia</h2>
+              <div class="resource-list">
+                <div class="resource-item free">
+                  <div class="resource-icon">📘</div>
+                  <div class="resource-content">
+                    <h3>CBC Parent's Guide</h3>
+                    <p>Understanding the Competency-Based Curriculum</p>
+                    <button class="resource-btn">Download PDF</button>
+                  </div>
+                </div>
+                <div class="resource-item premium">
+                  <div class="resource-icon">🔒</div>
+                  <div class="resource-content">
+                    <h3>Grade 6 KPSEA Practice Papers</h3>
+                    <p>Full set of practice exams with answers</p>
+                    <div class="premium-price">
+                      <span class="price">KSh 199</span>
+                      <button
+                        class="resource-btn"
+                        onclick="showUpgradeOptions()"
+                      >
+                        Nunua
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="resource-item premium">
+                  <div class="resource-icon">🔒</div>
+                  <div class="resource-content">
+                    <h3>STEM Pathway Preparation</h3>
+                    <p>30-min session with CBC specialist</p>
+                    <div class="premium-price">
+                      <span class="price">KSh 649</span>
+                      <button
+                        class="resource-btn"
+                        onclick="showUpgradeOptions()"
+                      >
+                        Book Now
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Children Summary -->
+            <div class="children-summary">
+              <h2>Your Children</h2>
+              <div class="children-list" id="childrenList">
+                <div class="child-card">
+                  <div class="child-avatar">👧</div>
+                  <div class="child-info">
+                    <h3 id="child1Name">Mwana</h3>
+                    <p>Grade 6, Primary School</p>
+                    <div class="child-progress">
+                      <div class="progress-bar">
+                        <div class="progress-fill" style="width: 87%"></div>
+                      </div>
+                      <span>87%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="child-card" id="child2Card" style="display: none">
+                  <div class="child-avatar">👦</div>
+                  <div class="child-info">
+                    <h3 id="child2Name">Mwana</h3>
+                    <p>Grade 3, Primary School</p>
+                    <div class="child-progress">
+                      <div class="progress-bar">
+                        <div class="progress-fill" style="width: 92%"></div>
+                      </div>
+                      <span>92%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Upgrade Modal -->
+    <div class="modal" id="upgradeModal">
+      <div class="modal-content">
+        <span class="close" onclick="closeModal('upgradeModal')">&times;</span>
+        <h2>Pata ELIMU Bora Premium</h2>
+        <p>
+          Unlock detailed CBC insights, personalized recommendations, and
+          premium learning resources.
+        </p>
+        <div class="pricing-options">
+          <div class="pricing-card">
+            <h3>Monthly</h3>
+            <div class="price">KSh 499<span>/month</span></div>
+            <ul>
+              <li>CBC Analytics</li>
+              <li>Personalized worksheets</li>
+              <li>Learning recommendations</li>
+              <li>Basic parent community</li>
+            </ul>
+            <button class="purchase-btn">Chagua Mfumo huu</button>
+          </div>
+          <div class="pricing-card recommended">
+            <div class="badge">Best Value</div>
+            <h3>Annual</h3>
+            <div class="price">KSh 4,999<span>/year</span></div>
+            <ul>
+              <li>Everything in Monthly</li>
+              <li>2 free tutor sessions</li>
+              <li>Priority support</li>
+              <li>Full parent community</li>
+            </ul>
+            <button class="purchase-btn">Chagua Mfumo huu</button>
+          </div>
+        </div>
+        <div class="payment-options">
+          <p>Pay securely with:</p>
+          <div class="payment-methods">
+            <div class="payment-method">MPesa</div>
+            <div class="payment-method">Airtel Money</div>
+            <div class="payment-method">Card</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="mainpage.js"></script>
+  </body>
+</html>
