@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       // Send data to Flask backend
-      const response = await fetch("http://127.0.0.1:5000/signup", {
+      const response = await fetch("/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -70,3 +70,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
